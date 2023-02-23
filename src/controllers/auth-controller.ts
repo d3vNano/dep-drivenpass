@@ -3,7 +3,7 @@ import httpStatus from "http-status";
 import { AuthBodyIf } from "../interfaces/index.js";
 import { authService } from "../services/index.js";
 
-async function signUp(req: Request, res: Response) {
+export async function signUp(req: Request, res: Response) {
     const { email, password }: AuthBodyIf = req.body
 
     try {
@@ -13,7 +13,16 @@ async function signUp(req: Request, res: Response) {
     } catch (error) {
         res.status(httpStatus.CONFLICT).send(error.message)
     }
-
 }
 
-export { signUp }
+export async function signIn(req: Request, res: Response) {
+    const { email, password }: AuthBodyIf = req.body
+
+    try {
+        const token = await authService.loginUser(email, password)
+
+        res.status(httpStatus.OK).send({ token: token, message: "Authentication Success!" })
+    } catch (error) {
+        res.status(httpStatus.UNAUTHORIZED).send(error.message)
+    }
+}

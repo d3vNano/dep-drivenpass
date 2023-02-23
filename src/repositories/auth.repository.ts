@@ -1,6 +1,6 @@
 import { prisma } from "../config/index.js";
 
-async function createUser(email: string, password: string) {
+export async function createUser(email: string, password: string) {
     await prisma.user.create({
         data: {
             email,
@@ -9,7 +9,7 @@ async function createUser(email: string, password: string) {
     })
 }
 
-async function findUserEmail(email: string) {
+export async function findUserEmail(email: string) {
     const findEmail = await prisma.user.findUnique({
         where: {
             email: email
@@ -17,5 +17,3 @@ async function findUserEmail(email: string) {
     })
     return findEmail
 }
-
-export { createUser, findUserEmail }
