@@ -1,4 +1,5 @@
 import { conflictError } from "../errors/conflict-error.js";
+import { forbiddenError } from "../errors/forbidden-error.js";
 import { notFoundError } from "../errors/not-found-error.js";
 import { CredentialData } from "../protocols/index.js";
 import { credentialRepository } from "../repositories/index.js";
@@ -28,6 +29,23 @@ export async function listUserCredentials(userId: number) {
             ...credential, password: decryptsPassword(credential.password)
         }
     })
+
+    return decryptedCredential
+}
+
+export async function listCredentialById(userId: number, credentialId: number) {
+    const credential = await credentialRepository.listCredentialById(credentialId)
+
+    if (!credential) {
+        throw notFoundError()
+    }
+
+    if (credential.userId !== userId) {
+        throw forbiddenError()
+    }
+
+    const decryptedPassword = decryptsPassword(credential.password)
+    const decryptedCredential = { ...credential, password: decryptedPassword }
 
     return decryptedCredential
 }

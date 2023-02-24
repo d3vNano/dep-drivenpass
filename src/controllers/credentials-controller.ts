@@ -29,3 +29,15 @@ export async function listUserCredentials(req: Request, res: Response) {
     }
 
 }
+
+export async function listCredentialById(req: Request, res: Response) {
+    const userId: number = Number(res.locals.userId)
+    const credentialId = Number(req.params.id)
+
+    try {
+        const credential = await credentialsService.listCredentialById(userId, credentialId)
+        res.status(httpStatus.OK).send(credential)
+    } catch (error) {
+        res.status(httpStatus.NOT_FOUND).send(error.message)
+    }
+}

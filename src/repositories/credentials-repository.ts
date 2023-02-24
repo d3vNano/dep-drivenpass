@@ -26,3 +26,13 @@ export async function listUserCredentials(userId: number) {
 
     return resultCredentials
 }
+
+export async function listCredentialById(credentialId: number) {
+    const resultCredential = await prisma.credential.findFirst({
+        where: {
+            id: credentialId
+        }
+    })
+
+    return resultCredential
+}
