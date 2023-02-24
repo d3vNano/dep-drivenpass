@@ -28,3 +28,11 @@ export async function listUserNetworksById(req: Request, res: Response) {
 
     res.status(httpStatus.OK).send(network)
 }
+
+export async function deleteNetwork(req: Request, res: Response) {
+    const userId: number = Number(res.locals.userId)
+    const networkId: number = Number(req.params.id)
+
+    await networksService.deleteNetwork(userId, networkId)
+    res.status(httpStatus.OK).send("SUCCESSFULLY DELETED")
+}

@@ -20,3 +20,10 @@ export async function listUserNetworksById(networkId: number) {
     })
     return network
 }
+
+export async function deleteNetwork(networkId: number) {
+    const deletedNetwork = await prisma.network.delete({
+        where: { id: networkId }
+    })
+    return deletedNetwork
+}

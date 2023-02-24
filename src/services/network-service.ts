@@ -44,3 +44,17 @@ export async function listUserNetworksById(networkId: number, userId: number) {
 
     return decryptedNetwork
 }
+
+export async function deleteNetwork(userId: number, networkId: number) {
+    const deletedNetwork = await netwotkRepository.listUserNetworksById(networkId)
+
+    if (!deletedNetwork) {
+        throw notFoundError()
+    }
+
+    if (deletedNetwork.userId !== userId) {
+        throw forbiddenError()
+    }
+
+    await netwotkRepository.deleteNetwork(deletedNetwork.id)
+}
