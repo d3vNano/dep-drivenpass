@@ -1,2 +1,2 @@
-export * from "./validate.middleware.js"
-export * from "./authentication-middleware.js"
+export * from "./validate.middleware"
+export * from "./authentication-middleware"

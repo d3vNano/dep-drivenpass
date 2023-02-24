@@ -1,6 +1,6 @@
-import { prisma } from "../config/index.js";
+import { prisma } from "@/config";
 
-import { CredentialData } from "../protocols/index.js";
+import { CredentialData } from "@/protocols";
 
 export async function findCredentialTitle(userId: number, title: string) {
     const resultTitle = await prisma.credential.findUnique({

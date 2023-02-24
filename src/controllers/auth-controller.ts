@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { AuthBodyIf } from "../interfaces/index.js";
-import { authService } from "../services/index.js";
+import { AuthBodyIf } from "@/interfaces"
+import { authService } from "@/services";
 
 export async function signUp(req: Request, res: Response) {
     const { email, password }: AuthBodyIf = req.body

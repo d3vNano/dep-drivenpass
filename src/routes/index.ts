@@ -1,8 +1,8 @@
 import { Router } from "express"
 
-import authRouter from "../routes/auth-router.js"
-import credentialsRouter from "../routes/credentials-router.js"
-import networksRouter from "./network-router.js"
+import authRouter from "./auth-router"
+import credentialsRouter from "./credentials-router"
+import networksRouter from "./network-router"
 
 const router = Router()
 

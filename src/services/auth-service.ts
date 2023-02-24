@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken"
 
-import { authRepository } from "../repositories/index.js";
-import { loadEnv } from "../config/envs.js";
-import { comparePassword, encryptPassword } from "../utils/password-encryption.js";
-import { conflictError, unauthorizedError } from "../errors/index.js";
+import { authRepository } from "@/repositories";
+import { loadEnv } from "@/config";
+import { comparePassword, encryptPassword } from "@/utils/password-encryption";
+import { conflictError, unauthorizedError } from "@/errors";
 
 loadEnv()
 

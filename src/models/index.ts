@@ -1,7 +1,7 @@
-import { SchemasIf } from "../interfaces/index.js"
-import { authSchema } from "./auth.schema.js"
-import { credentialSchema } from "./credential.schema.js"
-import { networkSchema } from "./network-schema.js"
+import { SchemasIf } from "@/interfaces"
+import { authSchema } from "./auth.schema"
+import { credentialSchema } from "./credential.schema"
+import { networkSchema } from "./network-schema"
 
 const schemas: SchemasIf = {
     "auth": authSchema,

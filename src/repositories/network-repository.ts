@@ -1,5 +1,5 @@
-import { prisma } from "../config/index.js";
-import { NetworkData } from "../protocols/index.js";
+import { prisma } from "@/config";
+import { NetworkData } from "@/protocols";
 
 export async function createNetwork(network: NetworkData, userId: number) {
     await prisma.network.create({

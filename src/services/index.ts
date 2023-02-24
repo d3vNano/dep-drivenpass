@@ -1,3 +1,3 @@
-export * as authService from "./auth-service.js"
-export * as credentialsService from "./credentials-service.js"
-export * as networksService from "./network-service.js"
+export * as authService from "./auth-service"
+export * as credentialsService from "./credentials-service"
+export * as networksService from "./network-service"

@@ -1,4 +1,4 @@
-import { RequestError } from "../interfaces/index.js";
+import { RequestError } from "@/interfaces";
 
 export function requestError(status: number, statusText: string): RequestError {
   return {

@@ -3,8 +3,8 @@ import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
 
-import { loadEnv, connectDB, disconnectDB } from "./config/index.js"
-import router from "./routes/index.js"
+import { loadEnv, connectDB, disconnectDB } from "@/config"
+import router from "@/routes"
 
 loadEnv();
 

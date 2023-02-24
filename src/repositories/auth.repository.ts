@@ -1,4 +1,4 @@
-import { prisma } from "../config/index.js";
+import { prisma } from "@/config";
 
 export async function createUser(email: string, password: string) {
     await prisma.user.create({

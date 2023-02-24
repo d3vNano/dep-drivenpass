@@ -1,9 +1,9 @@
-import { conflictError } from "../errors/conflict-error.js";
-import { forbiddenError } from "../errors/forbidden-error.js";
-import { notFoundError } from "../errors/not-found-error.js";
-import { CredentialData } from "../protocols/index.js";
-import { credentialRepository } from "../repositories/index.js";
-import { cryptographsGeneralPasswords, decryptsPassword } from "../utils/password-encryption.js";
+import { conflictError } from "@/errors/conflict-error";
+import { forbiddenError } from "@/errors/forbidden-error";
+import { notFoundError } from "@/errors/not-found-error";
+import { CredentialData } from "@/protocols";
+import { credentialRepository } from "@/repositories";
+import { cryptographsGeneralPasswords, decryptsPassword } from "@/utils/password-encryption";
 
 export async function createCredential(credential: CredentialData, userId: number) {
     const credentialTitle = await credentialRepository.findCredentialTitle(userId, credential.title)

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { NetworkData } from "../protocols/index.js";
-import { networksService } from "../services/index.js";
+import { NetworkData } from "@/protocols";
+import { networksService } from "@/services";
 
 export async function createNetwork(req: Request, res: Response) {
     const userId: number = Number(res.locals.userId)

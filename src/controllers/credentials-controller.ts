@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
-import { credentialsService } from "../services/index.js";
-import { CredentialData } from "../protocols/index.js";
+import { credentialsService } from "@/services";
+import { CredentialData } from "@/protocols";
 
 export async function createCredential(req: Request, res: Response) {
     const userId: number = Number(res.locals.userId)

@@ -1,8 +1,8 @@
-import { forbiddenError } from "../errors/forbidden-error.js";
-import { notFoundError } from "../errors/not-found-error.js";
-import { NetworkData } from "../protocols/index.js";
-import { netwotkRepository } from "../repositories/index.js";
-import { cryptographsGeneralPasswords, decryptsPassword } from "../utils/password-encryption.js";
+import { forbiddenError } from "@/errors/forbidden-error";
+import { notFoundError } from "@/errors/not-found-error";
+import { NetworkData } from "@/protocols";
+import { netwotkRepository } from "@/repositories";
+import { cryptographsGeneralPasswords, decryptsPassword } from "@/utils/password-encryption";
 
 
 export async function createNetwork(network: NetworkData, userId: number) {

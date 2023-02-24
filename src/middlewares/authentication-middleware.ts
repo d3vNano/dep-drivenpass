@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express";
-import { loadEnv } from "../config/index.js";
-import { unauthorizedError } from "../errors/index.js";
+import { loadEnv } from "@/config";
+import { unauthorizedError } from "@/errors";
 import httpStatus from "http-status";
 
 loadEnv()

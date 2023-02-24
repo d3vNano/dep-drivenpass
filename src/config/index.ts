@@ -1,2 +1,2 @@
-export * from "./database.js";
-export * from "./envs.js";
+export * from "./database";
+export * from "./envs";

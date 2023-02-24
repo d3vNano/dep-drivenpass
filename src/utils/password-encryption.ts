@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 import Cryptr from "cryptr"
 
-import { loadEnv } from "../config/index.js"
+import { loadEnv } from "@/config"
 
 loadEnv()
 

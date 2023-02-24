@@ -1,7 +1,7 @@
 import { Router } from "express"
 
-import { validateSchemas, authentication } from "../middlewares/index.js"
-import { credentialsController } from "../controllers/index.js"
+import { validateSchemas, authentication } from "@/middlewares"
+import { credentialsController } from "@/controllers"
 
 
 const credentialsRouter = Router()

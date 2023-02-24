@@ -1,4 +1,4 @@
-import { ApplicationError } from "../interfaces/index.js";
+import { ApplicationError } from "@/interfaces";
 
 export function notFoundError(): ApplicationError {
   return {

@@ -1,3 +1,3 @@
-export * as authRepository from "./auth.repository.js"
-export * as credentialRepository from "./credentials-repository.js"
-export * as netwotkRepository from "./network-repository.js"
+export * as authRepository from "./auth.repository"
+export * as credentialRepository from "./credentials-repository"
+export * as netwotkRepository from "./network-repository"

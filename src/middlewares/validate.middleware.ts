@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from "express";
-import { schemas } from "../models/index.js";
+import { schemas } from "@/models";
 
 export function validateSchemas(schema: string) {
     return (req: Request, res: Response, next: NextFunction) => {
