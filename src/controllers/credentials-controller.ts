@@ -41,3 +41,11 @@ export async function listCredentialById(req: Request, res: Response) {
         res.status(httpStatus.NOT_FOUND).send(error.message)
     }
 }
+
+export async function deleteCredential(req: Request, res: Response) {
+    const userId: number = Number(res.locals.userId)
+    const credentialId: number = Number(req.params.id)
+
+    await credentialsService.deleteCredential(userId, credentialId)
+    res.status(httpStatus.OK).send("SUCCESSFULLY DELETED")
+}

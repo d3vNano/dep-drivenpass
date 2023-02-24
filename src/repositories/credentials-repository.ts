@@ -36,3 +36,12 @@ export async function listCredentialById(credentialId: number) {
 
     return resultCredential
 }
+
+export async function deleteCredential(credentialId: number) {
+    const deletedCredential = await prisma.credential.delete({
+        where: {
+            id: credentialId
+        }
+    })
+    return deletedCredential
+}

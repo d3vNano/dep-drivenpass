@@ -49,3 +49,17 @@ export async function listCredentialById(userId: number, credentialId: number) {
 
     return decryptedCredential
 }
+
+export async function deleteCredential(userId: number, credentialId: number) {
+    const deletedCredential = await credentialRepository.listCredentialById(credentialId)
+
+    if (!deletedCredential) {
+        throw notFoundError()
+    }
+
+    if (deletedCredential.userId !== userId) {
+        throw forbiddenError()
+    }
+
+    await credentialRepository.deleteCredential(deletedCredential.id)
+}
