@@ -5,5 +5,6 @@ import { validateSchemas, authentication } from "../middlewares/index.js"
 const networksRouter = Router()
 
 networksRouter.post('/networks', validateSchemas("network"), authentication, networksController.createNetwork)
+networksRouter.get('/networks', authentication, networksController.listUserNetworks)
 
 export default networksRouter
