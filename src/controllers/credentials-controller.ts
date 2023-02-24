@@ -5,7 +5,7 @@ import { credentialsService } from "../services/index.js";
 import { CredentialData } from "../protocols/index.js";
 
 export async function createCredential(req: Request, res: Response) {
-    const userId = Number(res.locals.userId)
+    const userId: number = Number(res.locals.userId)
     const credential: CredentialData = req.body
 
     try {
@@ -19,7 +19,7 @@ export async function createCredential(req: Request, res: Response) {
 }
 
 export async function listUserCredentials(req: Request, res: Response) {
-    const userId = Number(res.locals.userId)
+    const userId: number = Number(res.locals.userId)
 
     try {
         const userCredentials = await credentialsService.listUserCredentials(userId)
