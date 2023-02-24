@@ -1,4 +1,4 @@
-import { Credential } from "@prisma/client";
+import { Credential, Network } from "@prisma/client";
 
 export type ApplicationError = {
     name: string;
@@ -6,3 +6,5 @@ export type ApplicationError = {
 };
 
 export type CredentialData = Omit<Credential, "id" | "userId" | "createdAt">;
+
+export type NetworkData = Omit<Network, "id" | "userId" | "createdAt">
