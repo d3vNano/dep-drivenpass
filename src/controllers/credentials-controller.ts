@@ -17,3 +17,15 @@ export async function createCredential(req: Request, res: Response) {
         res.status(httpStatus.CONFLICT).send(error.message)
     }
 }
+
+export async function listUserCredentials(req: Request, res: Response) {
+    const userId = Number(res.locals.userId)
+
+    try {
+        const userCredentials = await credentialsService.listUserCredentials(userId)
+        res.status(httpStatus.OK).send(userCredentials)
+    } catch (error) {
+        res.status(httpStatus.NOT_FOUND).send(error.message)
+    }
+
+}

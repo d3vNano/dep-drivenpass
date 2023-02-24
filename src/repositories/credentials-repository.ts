@@ -16,3 +16,13 @@ export async function createCredential(credential: CredentialData, userId: numbe
         data: { ...credential, userId }
     })
 }
+
+export async function listUserCredentials(userId: number) {
+    const resultCredentials = await prisma.credential.findMany({
+        where: {
+            userId
+        }
+    })
+
+    return resultCredentials
+}
