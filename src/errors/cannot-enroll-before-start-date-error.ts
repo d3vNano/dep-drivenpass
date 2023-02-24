@@ -1,4 +1,4 @@
-import { ApplicationError } from "@/interfaces";
+import { ApplicationError } from "@/protocols";
 
 export function cannotEnrollBeforeStartDateError(): ApplicationError {
   return {

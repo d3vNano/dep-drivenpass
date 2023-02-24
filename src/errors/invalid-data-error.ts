@@ -1,4 +1,4 @@
-import { ApplicationError } from "@/interfaces";
+import { ApplicationError } from "@/protocols";
 
 export function invalidDataError(details: string[]): ApplicationInvalidateDataError {
   return {
