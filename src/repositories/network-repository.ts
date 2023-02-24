@@ -13,3 +13,10 @@ export async function listUserNetworks(userId: number) {
     })
     return networks
 }
+
+export async function listUserNetworksById(networkId: number) {
+    const network = await prisma.network.findFirst({
+        where: { id: networkId }
+    })
+    return network
+}

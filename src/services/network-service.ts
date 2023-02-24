@@ -1,3 +1,4 @@
+import { forbiddenError } from "../errors/forbidden-error.js";
 import { notFoundError } from "../errors/not-found-error.js";
 import { NetworkData } from "../protocols/index.js";
 import { netwotkRepository } from "../repositories/index.js";
@@ -24,5 +25,22 @@ export async function listUserNetworks(userId: number) {
             password: decryptsPassword(net.password)
         }
     })
+    return decryptedNetwork
+}
+
+export async function listUserNetworksById(networkId: number, userId: number) {
+    const network = await netwotkRepository.listUserNetworksById(networkId)
+
+    if (!network) {
+        throw notFoundError()
+    }
+
+    if (network.userId !== userId) {
+        throw forbiddenError()
+    }
+
+    const decryptedPassword = decryptsPassword(network.password)
+    const decryptedNetwork = { ...network, password: decryptedPassword }
+
     return decryptedNetwork
 }

@@ -19,3 +19,12 @@ export async function listUserNetworks(req: Request, res: Response) {
 
     res.status(httpStatus.OK).send(networks)
 }
+
+export async function listUserNetworksById(req: Request, res: Response) {
+    const userId: number = Number(res.locals.userId)
+    const networkId: number = Number(req.params.id)
+
+    const network = await networksService.listUserNetworksById(networkId, userId)
+
+    res.status(httpStatus.OK).send(network)
+}
