@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { schemas } from "../models/index.js";
 
-function validateSchemas(schema: string) {
+export function validateSchemas(schema: string) {
     return (req: Request, res: Response, next: NextFunction) => {
         const { error } = schemas[schema].validate(req.body, { abortEarly: false })
 
@@ -12,5 +12,3 @@ function validateSchemas(schema: string) {
         return next()
     }
 }
-
-export { validateSchemas }
