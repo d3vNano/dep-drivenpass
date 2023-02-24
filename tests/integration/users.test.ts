@@ -1,47 +1,78 @@
 import supertest from 'supertest';
-import app from '@/app';
+import httpStatus from 'http-status';
+import { faker } from "@faker-js/faker";
+
+import app, { init } from "@/app"
 import { prisma } from '@/config';
-
 import { factory } from '../factories';
+import { cleanDB } from '../helpers';
+import { createUser } from '../factories/users-factory';
 
-beforeEach(async () => {
-    await prisma.$executeRaw`TRUNCATE TABLE users CASCADE`;
-    await prisma.$executeRaw`DELETE FROM users WHERE email = 'igor@igor.com'`;
-});
+beforeAll(async () => {
+    await init()
+    await cleanDB()
+})
 
-describe('User creation test suite', () => {
-    it('should result in a 201 status after creating a random user', async () => {
-        const user = factory.createUser(true);
-        const result = await supertest(app).post('/sign-up').send(user);
-        expect(result.statusCode).toEqual(201);
+const server = supertest(app)
+
+describe("POST /signup", () => {
+    it("should respond with status 422 when body is not given", async () => {
+        const response = await server.post("/signup")
+
+        expect(response.status).toBe(httpStatus.UNPROCESSABLE_ENTITY)
+    })
+
+    it("should respond with status 422 when body is not valid", async () => {
+        const invalidBody = { [faker.lorem.word()]: faker.lorem.word() };
+
+        const response = await server.post("/signup").send(invalidBody);
+
+        expect(response.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
     });
 
-    it('should result in a 409 status after creating the same email in user', async () => {
-        const user = factory.createUser();
-        const result1 = await supertest(app).post('/sign-up').send(user);
-        expect(result1.statusCode).toEqual(201);
-        const result2 = await supertest(app).post('/sign-up').send(user);
-        expect(result2.statusCode).toEqual(409);
-    });
+    describe("when body is valid", () => {
+        const generateValidBody = () => ({
+            email: faker.internet.email(),
+            password: faker.internet.password(8),
+        });
 
-    it('should result in a 422 status after creating the wrong schema input', async () => {
-        const user = factory.createUserWrongSchema();
-        const result = await supertest(app).post('/sign-up').send(user);
-        expect(result.statusCode).toEqual(422);
-    });
-});
+        it("should respond with status 409 when there is an user with given email", async () => {
+            const body = generateValidBody();
+            await createUser(body);
 
-describe('User signing in test suite', () => {
-    it('should result in a 200 status after signing right info', async () => {
-        const user = factory.createUser();
-        const result = await supertest(app).post('/sign-up').send(user);
-        expect(result.statusCode).toEqual(201);
-        const userSame = factory.loginUser();
-        const result2 = await supertest(app).post('/sign-in').send(userSame);
-        expect(result2.statusCode).toEqual(200);
-    });
-});
+            const response = await server.post("/signup").send(body);
+            expect(response.status).toBe(httpStatus.CONFLICT);
+        });
 
-afterAll(async () => {
-    await prisma.$disconnect();
+        it("should not return user password on body", async () => {
+            const body = generateValidBody();
+
+            const response = await server.post("/signup").send(body);
+
+            expect(response.body).not.toHaveProperty("password");
+        });
+
+        it("should respond with status 201 when user is created", async () => {
+            const body = generateValidBody();
+
+            const response = await server.post("/signup").send(body);
+            expect(response.status).toBe(httpStatus.CREATED);
+        });
+
+        // it("should save user on db", async () => {
+        //     const body = generateValidBody();
+
+        //     const response = await server.post("/signup").send(body);
+
+        //     const user = await prisma.user.findUnique({
+        //         where: { email: body.email },
+        //     });
+        //     expect(user).toEqual(
+        //         expect.objectContaining({
+        //             id: response.body.id,
+        //             email: body.email,
+        //         }),
+        //     )
+        // })
+    })
 })

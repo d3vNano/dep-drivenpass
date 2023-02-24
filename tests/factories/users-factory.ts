@@ -1,36 +1,17 @@
-import { faker } from '@faker-js/faker';
-import { CreateUserInput, CreateUserData } from "@/protocols"
+import bcrypt from "bcrypt";
+import { faker } from "@faker-js/faker";
+import { User } from "@prisma/client";
+import { prisma } from "@/config";
 
-export function createUser(random: boolean = false) {
-    return random
-        ? <CreateUserInput>{
-            email: faker.internet.email(),
-            password: 'igor123456789',
-            confirmPassword: 'igor123456789',
-        }
-        : <CreateUserInput>{
-            email: 'igor@igor.com',
-            password: 'igor123456789',
-            confirmPassword: 'igor123456789',
-        };
-}
 
-export function createUserWrongSchema() {
-    return <CreateUserInput>{
-        email: 'igor@igor.com',
-        password: 'igor',
-        confirmPassword: 'igor123456789',
-    };
-}
+export async function createUser(params: Partial<User> = {}): Promise<User> {
+    const incomingPassword = params.password || faker.internet.password(8);
+    const encryptedPassword = await bcrypt.hash(incomingPassword, 10);
 
-export function loginUser(random: boolean = false) {
-    return random
-        ? <CreateUserData>{
-            email: faker.internet.email(),
-            password: 'igor123456789',
-        }
-        : <CreateUserData>{
-            email: 'igor@igor.com',
-            password: 'igor123456789',
-        };
+    return prisma.user.create({
+        data: {
+            email: params.email || faker.internet.email(),
+            password: encryptedPassword,
+        },
+    });
 }
